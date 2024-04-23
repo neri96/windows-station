@@ -9,6 +9,10 @@ import windowData from "@/app/db/window/items";
 
 const StyledWindowDescr = styled.div`
   position: relative;
+  p {
+    line-height: 1.8rem;
+    font-size: 1.2rem;
+  }
   .windowDescrImage {
     margin-right: 20px;
     img {
@@ -37,11 +41,7 @@ const StyledWindowDescrContent = styled.div`
   max-width: 900px;
   margin: 0 auto;
   p {
-    color: ${(props) => props.theme.backgroundColor};
-    line-height: 25px;
-    &:first-child {
-      margin-top: 0;
-    }
+    color: ${(props) => props.theme.textColor};
   }
 `;
 
@@ -56,18 +56,14 @@ export const WindowDescr = () => {
   return (
     <StyledWindowDescr>
       <StyledWindowDescrTitle>
-        <h2>{title}</h2>
+        <h1>{title}</h1>
       </StyledWindowDescrTitle>
       <Slider items={images} isFullWidthImg />
       <PageSection>
         <StyledWindowDescrContent>
           {Array.isArray(content) ? (
             content.map((elem, index) => {
-              return (
-                <p key={index} style={{ color: "#333" }}>
-                  {elem}
-                </p>
-              );
+              return <p key={index}>{elem}</p>;
             })
           ) : (
             <p>{content}</p>

@@ -48,12 +48,12 @@ const TopBar = () => {
             <span>1-800-342-0308</span>
           </a>
         </li>
-        <li>
+        {/* <li>
           <a href="mailto:windostation@gmail.com">
             {getImage(IcMail, "email")}
             <span>windostation@gmail.com</span>
           </a>
-        </li>
+        </li> */}
       </ul>
     </StyledTopBar>
   );

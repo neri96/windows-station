@@ -16,4 +16,4 @@ export const CtxGalleryImages = createContext<{
   toggleCarousel: () => void;
 }>({ items: [], initialIndex: 0, toggleCarousel: () => null });
 
-export const CtxImageZoom = createContext<number>(0);
+export const CtxImageZoom = createContext<number>(1);

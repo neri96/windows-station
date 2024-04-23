@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 
 import { v4 as uuid } from "uuid";
 
@@ -52,14 +53,16 @@ const MainNav = () => {
 
   return (
     <StyledHeaderContent>
-      <StyledMainIcon>
-        <Image className="mainIconLarge" src={ImgMainNav} alt="Main Icon" />
-        <Image
-          className="mainIconSmall"
-          src={ImgMainNavSmall}
-          alt="Main Icon"
-        />
-      </StyledMainIcon>
+      <Link href={"/"}>
+        <StyledMainIcon>
+          <Image className="mainIconLarge" src={ImgMainNav} alt="Main Icon" />
+          <Image
+            className="mainIconSmall"
+            src={ImgMainNavSmall}
+            alt="Main Icon"
+          />
+        </StyledMainIcon>
+      </Link>
       <StyledMainNav>
         <StyledMainList>
           {navList.map((listElem, index) => (

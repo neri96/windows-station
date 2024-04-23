@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     color: #e6e6e6;
-    background: linear-gradient(to right, #f0f2f0, #000c40);
+    background: linear-gradient(to right, #4d4d00, #000c40);
   }
 
   ul {
