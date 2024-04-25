@@ -33,6 +33,14 @@ const StyledSliderItem = styled.div<{
   display: flex;
   position: relative;
   justify-content: center;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  &:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
 `;
 
 const StyledSliderImage = styled.div<{

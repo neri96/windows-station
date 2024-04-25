@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const StyledSliderWrap = styled.div<{ $height: string | undefined }>`
+  min-height: 500px;
   ${({ $height }) => `height: ${$height || "100vh"}`};
   position: relative;
   overflow: hidden;
@@ -9,7 +10,6 @@ export const StyledSliderWrap = styled.div<{ $height: string | undefined }>`
 `;
 
 export const StyledSliderBtn = styled.div<{ $isLeft?: boolean }>`
-  border-radius: 50%;
   cursor: pointer;
   position: absolute;
   top: 50%;

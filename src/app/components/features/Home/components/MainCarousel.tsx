@@ -17,7 +17,15 @@ const carouselData: ISliderData[] = [
 ];
 
 const MainCarousel = () => {
-  return <Slider items={carouselData} isFullWidthImg />;
+  return (
+    <Slider
+      items={carouselData}
+      isFullWidthImg
+      isPagination
+      isInfininte
+      isAutoDefault
+    />
+  );
 };
 
 export default MainCarousel;

@@ -2,15 +2,16 @@
 
 import {
   useState,
+  useCallback,
   useEffect,
   useContext,
   TouchEvent,
   MouseEvent,
-  useCallback,
 } from "react";
 
 import SliderItem from "./SliderItem";
 import SliderFooter from "./SliderFooter";
+import SliderPagination from "./SliderPagination";
 import Icon from "../Icon";
 import Button from "../Button";
 
@@ -26,38 +27,69 @@ import { IItemImage, ISliderData } from "@/app/db/ts/interfaces";
 
 interface Props {
   items: ISliderData[] | IItemImage[];
-  isFooterNav?: boolean;
-  initialIndex?: number;
   height?: string;
+  initialIndex?: number;
+  isFooterNav?: boolean;
+  isPagination?: boolean;
+  isInfininte?: boolean;
+  isAutoDefault?: boolean;
   isFullWidthImg?: boolean;
   zoomControllers?: boolean;
 }
 
-const transition = 300;
-
 const Slider = ({
   items,
-  isFooterNav = false,
-  initialIndex,
   height,
+  initialIndex,
+  isFooterNav = false,
+  isPagination = false,
+  isInfininte = false,
+  isAutoDefault = false,
   isFullWidthImg = false,
   zoomControllers = false,
 }: Props) => {
   const currentZoom = useContext(CtxImageZoom);
 
-  const [currentIndex, setCurrentIndex] = useState<number>(initialIndex || 0);
+  const [currentIndex, setCurrentIndex] = useState<number>(
+    initialIndex || isInfininte ? 1 : 0
+  );
   const [isTransitionActive, toggleTransition] = useToggle(true);
-  const [isAuto, toggleAuto] = useToggle();
+  const [isAuto, toggleAuto] = useToggle(isAutoDefault);
 
   //  swipe
   const [distance, setDistance] = useState<number>(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  const carouselArrFinite = [...items];
-  const carouselArrInfinite = [...items, items[0]];
-  const carouselArr = isAuto ? carouselArrInfinite : carouselArrFinite;
+  const carouselArr = isInfininte
+    ? [items[items.length - 1], ...items, items[0]]
+    : items;
   const minSwipeDistance = 50;
+
+  const handleSlide = useCallback(
+    (index: number) => {
+      if (isInfininte) {
+        if (index === carouselArr.length - 1) {
+          setTimeout(() => {
+            toggleTransition();
+            setCurrentIndex(1);
+          }, 300);
+        } else if (index === 0) {
+          setTimeout(() => {
+            toggleTransition();
+            setCurrentIndex(carouselArr.length - 2);
+          }, 300);
+        }
+      } else {
+        if (index < 0 || index > carouselArr.length - 1) {
+          return null;
+        }
+      }
+
+      setCurrentIndex(index);
+    },
+    [carouselArr.length, isInfininte, toggleTransition]
+  );
 
   const onTouchStart = (e: TouchEvent) => {
     setTouchEnd(null); // otherwise the swipe is fired even with usual touch events
@@ -88,70 +120,12 @@ const Slider = ({
 
   useEffect(() => {
     if (touchStart && touchEnd) {
-      const _distance = touchStart - touchEnd;
-
-      if (
-        (_distance > 0 && currentIndex === carouselArrFinite.length - 1) ||
-        (_distance < 0 && currentIndex === 0)
-      ) {
-        return;
-      }
-
       setDistance(touchStart - touchEnd);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [touchStart, touchEnd, carouselArrFinite.length]);
+  }, [touchStart, touchEnd]);
   // swipe
-
-  const handleTransition = useCallback(() => {
-    setTimeout(() => {
-      toggleTransition();
-    }, transition);
-  }, []);
-
-  useEffect(() => {
-    if (!isTransitionActive) {
-      setCurrentIndex(0);
-
-      if (currentIndex === 0) {
-        handleTransition();
-      }
-    }
-  }, [isTransitionActive, currentIndex, handleTransition]);
-
-  useEffect(() => {
-    if (currentIndex === 0 || currentIndex === carouselArrInfinite.length - 1) {
-      handleTransition();
-    }
-  }, [currentIndex, carouselArrInfinite.length, handleTransition]);
-
-  useEffect(() => {
-    if (isAuto) {
-      const interval = setInterval(
-        () => {
-          if (currentIndex === 0 && !isTransitionActive) {
-            toggleTransition();
-          }
-          setCurrentIndex((prevState) => prevState + 1);
-        },
-        currentIndex === 0 && !isTransitionActive ? 1500 - transition : 1500
-      );
-
-      return () => clearInterval(interval);
-    }
-  }, [currentIndex, isTransitionActive, isAuto, toggleTransition]);
-
-  const handleSlide = (index: number) => {
-    if (
-      index < 0 ||
-      index > carouselArrFinite.length - 1 ||
-      !isTransitionActive
-    )
-      return false;
-
-    setCurrentIndex(index);
-  };
 
   const onMouseDown = (e: MouseEvent) => {
     e.preventDefault();
@@ -162,11 +136,41 @@ const Slider = ({
     setTouchEnd(e.clientX);
   };
 
+  useEffect(() => {
+    if (isInfininte) {
+      if (
+        (currentIndex === 1 && !isTransitionActive) ||
+        (currentIndex === carouselArr.length - 2 && !isTransitionActive)
+      ) {
+        setTimeout(() => {
+          toggleTransition();
+        }, 300);
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex, isInfininte, isTransitionActive, toggleTransition]);
+
+  useEffect(() => {
+    if (isAuto) {
+      const interval = setInterval(() => {
+        handleSlide(currentIndex + 1);
+      }, 2000);
+
+      return () => clearInterval(interval);
+    }
+  }, [currentIndex, isAuto, handleSlide]);
+
   return (
     <StyledSliderWrap $height={height}>
       {currentZoom === 1 ? (
         <StyledSliderBtn $isLeft>
-          <Button onClick={() => handleSlide(currentIndex - 1)}>
+          <Button
+            disabled={
+              !isTransitionActive || (!isInfininte && currentIndex === 0)
+            }
+            onClick={() => handleSlide(currentIndex - 1)}
+          >
             <Icon src={ArrowMove} alt="previous slide" />
           </Button>
         </StyledSliderBtn>
@@ -186,25 +190,29 @@ const Slider = ({
         $transition={isTransitionActive}
         $isFooterNav={isFooterNav}
       >
-        {(isAuto ? carouselArrInfinite : carouselArr).map(
-          ({ id, ...itemData }, index, self) => {
-            return (
-              <SliderItem
-                key={id || index}
-                data={itemData}
-                currentZoom={currentZoom}
-                isFullWidthImg={isFullWidthImg}
-                zoomControllers={zoomControllers}
-                carouselLength={self.length}
-              />
-            );
-          }
-        )}
+        {carouselArr.map(({ id, ...itemData }, index, self) => {
+          return (
+            <SliderItem
+              key={id || index}
+              data={itemData}
+              currentZoom={currentZoom}
+              isFullWidthImg={isFullWidthImg}
+              zoomControllers={zoomControllers}
+              carouselLength={self.length}
+            />
+          );
+        })}
       </StyledSlider>
 
       {currentZoom === 1 ? (
         <StyledSliderBtn>
-          <Button onClick={() => handleSlide(currentIndex + 1)}>
+          <Button
+            disabled={
+              !isTransitionActive ||
+              (!isInfininte && currentIndex === carouselArr.length - 1)
+            }
+            onClick={() => handleSlide(currentIndex + 1)}
+          >
             <Icon src={ArrowMove} alt="next slide" />
           </Button>
         </StyledSliderBtn>
@@ -214,6 +222,17 @@ const Slider = ({
           currentIndex={currentIndex}
           handleSlide={handleSlide}
           items={items}
+        />
+      ) : null}
+      {isPagination ? (
+        <SliderPagination
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
+          sliderLength={
+            isInfininte ? carouselArr.length - 2 : carouselArr.length
+          } // in case the carousel is infinite, there are two extra slides that imitate endless loop but they shouldn't appear in pagination
+          isAuto={isAuto}
+          toggleAuto={toggleAuto}
         />
       ) : null}
     </StyledSliderWrap>
