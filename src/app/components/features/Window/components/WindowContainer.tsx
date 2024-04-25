@@ -1,7 +1,7 @@
 import PageTop from "@/app/components/ui/PageTop";
 import Item from "@/app/components/ui/Item";
 
-import imgWindow from "@/app/assets/windows.jpg";
+import imgWindow from "@/app/assets/windows.webp";
 
 import items from "@/app/db/window/items";
 import manufacturers from "@/app/db/window/manufacturers";

@@ -20,8 +20,8 @@ import Image from "next/image";
 
 import useToggle from "@/app/hooks/useToggle";
 
-import ImgMainNav from "../../../../assets/main-icon.png";
-import ImgMainNavSmall from "../../../../assets/main-icon-small.png";
+import ImgMainNav from "../../../../assets/main-icon.webp";
+import ImgMainNavSmall from "../../../../assets/main-icon-small.webp";
 
 import {
   StyledHeaderContent,

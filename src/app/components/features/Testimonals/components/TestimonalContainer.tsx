@@ -1,9 +1,9 @@
 "use client";
 
 import PageTop from "@/app/components/ui/PageTop";
-
-import imgTestimonals from "@/app/assets/testimonals.jpg";
 import TestimonalList from "./TestimonalList";
+
+import imgTestimonals from "@/app/assets/testimonals.webp";
 
 export const TestimonalContainer = () => {
   return (

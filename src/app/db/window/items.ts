@@ -1,18 +1,18 @@
-import milgardAluminium from "@/app/assets/milgard-aluminium.jpg";
-import milgardAluminium2 from "@/app/assets/milgard-aluminium2.jpg";
-import milgardFiberglass from "@/app/assets/milgard-fiberglass.png";
-import milgardFiberglass2 from "@/app/assets/milgard-fiberglass2.jpg";
-import milgardVynil from "@/app/assets/milgard-vinyl.jpeg";
+import milgardAluminium from "@/app/assets/milgard-aluminium.webp";
+import milgardAluminium2 from "@/app/assets/milgard-aluminium2.webp";
+import milgardFiberglass from "@/app/assets/milgard-fiberglass.webp";
+import milgardFiberglass2 from "@/app/assets/milgard-fiberglass2.webp";
+import milgardVynil from "@/app/assets/milgard-vinyl.webp";
 import milgardVynil2 from "@/app/assets/milgard-vinyl2.webp";
-import milgardVynil3 from "@/app/assets/milgard-vinyl3.jpg";
-import simontonVinyl from "@/app/assets/simonton-vinyl.jpg";
-import simontonVinyl2 from "@/app/assets/simonton-vinyl2.jpg";
-import simontonVinyl3 from "@/app/assets/simonton-vinyl3.jpg";
-import iwcVinyl from "@/app/assets/iwc-vinyl.jpg";
-import iwcVinyl2 from "@/app/assets/iwc-vinyl2.jpg";
-import cascadeVinyl from "@/app/assets/cascade-vinyl.jpeg";
-import cascadeVinyl2 from "@/app/assets/cascade-vinyl.jpg";
-import cascadeVinyl3 from "@/app/assets/cascade-vinyl3.jpg";
+import milgardVynil3 from "@/app/assets/milgard-vinyl3.webp";
+import simontonVinyl from "@/app/assets/simonton-vinyl.webp";
+import simontonVinyl2 from "@/app/assets/simonton-vinyl2.webp";
+import simontonVinyl3 from "@/app/assets/simonton-vinyl3.webp";
+import iwcVinyl from "@/app/assets/iwc-vinyl.webp";
+import iwcVinyl2 from "@/app/assets/iwc-vinyl2.webp";
+import cascadeVinyl from "@/app/assets/cascade-vinyl.webp";
+import cascadeVinyl3 from "@/app/assets/cascade-vinyl3.webp";
+
 import { IDbItems } from "../ts/interfaces";
 
 const data: IDbItems = {

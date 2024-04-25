@@ -1,11 +1,11 @@
 import { v4 as uuid } from "uuid";
 
-import img1 from "@/app/assets/gallery/door/img1.jpg";
-import img2 from "@/app/assets/gallery/door/img2.jpg";
-import img3 from "@/app/assets/gallery/door/img3.jpg";
-import img4 from "@/app/assets/gallery/door/img4.jpg";
-import img5 from "@/app/assets/gallery/door/img5.jpg";
-import img6 from "@/app/assets/gallery/door/img6.jpg";
+import img1 from "@/app/assets/gallery/door/img1.webp";
+import img2 from "@/app/assets/gallery/door/img2.webp";
+import img3 from "@/app/assets/gallery/door/img3.webp";
+import img4 from "@/app/assets/gallery/door/img4.webp";
+import img5 from "@/app/assets/gallery/door/img5.webp";
+import img6 from "@/app/assets/gallery/door/img6.webp";
 
 const data = [
   {

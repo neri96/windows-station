@@ -1,7 +1,7 @@
 import PageTop from "@/app/components/ui/PageTop";
 import Item from "@/app/components/ui/Item";
 
-import imgDoor from "@/app/assets/doors.jpg";
+import imgDoor from "@/app/assets/doors.webp";
 
 import items from "@/app/db/door/items";
 import manufacturers from "@/app/db/door/manufacturers";

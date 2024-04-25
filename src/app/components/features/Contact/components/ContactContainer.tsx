@@ -5,7 +5,7 @@ import styled from "styled-components";
 import ContactInfo from "./ContactInfo";
 import ContactForm from "./ContactForm";
 
-import ImgContact from "@/app/assets/contact.jpg";
+import ImgContact from "@/app/assets/contact.webp";
 
 const StyledContact = styled.div`
   padding: 20px 0;
