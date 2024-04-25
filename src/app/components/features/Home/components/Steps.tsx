@@ -107,7 +107,7 @@ const StyledStepsElem = styled.div<{ $index: number; $inView: boolean }>`
     css`
       animation-name: ${reverseAnim};
       animation-duration: 2000ms;
-      animation-delay: ${$index * 400 + "ms"};
+      animation-delay: ${$index * 200 + "ms"};
       animation-fill-mode: forwards;
     `};
 `;
@@ -122,7 +122,7 @@ const StyledStepsElemContainer = styled.div<{
     css`
       animation-name: ${appeareAnim};
       animation-duration: 200ms;
-      animation-delay: ${$index * 400 + "ms"};
+      animation-delay: ${$index * 200 + "ms"};
       animation-fill-mode: forwards;
     `};
 `;

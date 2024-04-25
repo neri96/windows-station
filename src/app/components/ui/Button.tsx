@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 
 import styled from "styled-components";
 
@@ -10,8 +10,10 @@ export enum BtnType {
 const StyledButton = styled.button<{
   $disabled: boolean;
   $hidden: boolean;
+  $noBackground: boolean;
 }>`
-  background-color: #3f4739;
+  ${({ $noBackground }) =>
+    `background-color: ${$noBackground ? "transparent" : "#3f4739"};`};
   border: none;
   outline: none;
   border-radius: 5px;
@@ -20,6 +22,9 @@ const StyledButton = styled.button<{
   box-sizing: border-box;
   cursor: pointer;
   transition: 300ms ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   ${({ $hidden }) => $hidden && `display: none`};
   ${({ $disabled }) => $disabled && `opacity: 0.5`};
   &:active {
@@ -31,22 +36,28 @@ const Button = ({
   hidden = false,
   btnType = BtnType.Button,
   disabled = false,
+  noBackground = false,
   onClick,
   children,
+  style,
 }: {
   hidden?: boolean;
   btnType?: BtnType;
   disabled?: boolean;
+  noBackground?: boolean;
   onClick?: () => void;
-  children: ReactNode;
+  children?: ReactNode;
+  style?: CSSProperties;
 }) => {
   return (
     <StyledButton
       $hidden={hidden}
       $disabled={disabled}
+      $noBackground={noBackground}
       disabled={disabled}
       type={btnType === BtnType.Button ? "button" : "submit"}
-      onClick={onClick}
+      onClick={() => !disabled && onClick && onClick()}
+      style={style}
     >
       {children}
     </StyledButton>

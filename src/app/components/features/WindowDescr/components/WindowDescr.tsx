@@ -58,7 +58,7 @@ export const WindowDescr = () => {
       <StyledWindowDescrTitle>
         <h1>{title}</h1>
       </StyledWindowDescrTitle>
-      <Slider items={images} isFullWidthImg />
+      <Slider items={images} isFullWidthImg isPagination isInfininte />
       <PageSection>
         <StyledWindowDescrContent>
           {Array.isArray(content) ? (

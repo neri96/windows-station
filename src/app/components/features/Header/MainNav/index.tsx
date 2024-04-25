@@ -49,7 +49,7 @@ const MainNav = () => {
 
   useEffect(() => {
     if (isMobile) setIsMenuOpen(false);
-  }, [isMobile, setIsMenuOpen]);
+  }, [setIsMenuOpen]);
 
   return (
     <StyledHeaderContent>

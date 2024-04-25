@@ -10,7 +10,7 @@ import Steps from "./Steps";
 
 export const HomeContainer = () => {
   const { ref: stepsElemRef, inView } = useInView({
-    threshold: 0,
+    threshold: 0.3,
     triggerOnce: true,
   });
 
