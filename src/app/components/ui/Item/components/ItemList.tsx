@@ -41,7 +41,7 @@ const StyledItemList = styled.div<{ $length: number }>`
       justify-content: center;
       height: calc(100% - 10px);
       width: 100%;
-      background-color: #3f4739;
+      background-color: ${(props) => props.theme.backgroundColor2};
       border-radius: 5px;
       text-transform: capitalize;
       cursor: pointer;

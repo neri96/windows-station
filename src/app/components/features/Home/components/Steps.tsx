@@ -60,7 +60,7 @@ const StyledSteps = styled.div`
 
 const StyledStepsTitle = styled.div`
   border-radius: 5px;
-  background-color: #3f4739;
+  background-color: ${(props) => props.theme.backgroundColor2};
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   height: 60px;
@@ -94,7 +94,7 @@ const StyledStepsContent = styled.div`
 
 const StyledStepsElem = styled.div<{ $index: number; $inView: boolean }>`
   position: relative;
-  background-color: #3f4739;
+  background-color: ${(props) => props.theme.backgroundColor2};
   text-align: center;
   line-height: 22px;
   padding: 0 10px 50px;
@@ -128,7 +128,7 @@ const StyledStepsElemContainer = styled.div<{
 `;
 
 const StyledStepsElemNumber = styled.div`
-  background-color: #191c17;
+  background-color: ${(props) => props.theme.backgroundColor};
   height: 60px;
   width: 60px;
   border-radius: 50%;

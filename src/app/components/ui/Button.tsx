@@ -1,6 +1,6 @@
 import { CSSProperties, ReactNode } from "react";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export enum BtnType {
   Button = "button",
@@ -13,7 +13,10 @@ const StyledButton = styled.button<{
   $noBackground: boolean;
 }>`
   ${({ $noBackground }) =>
-    `background-color: ${$noBackground ? "transparent" : "#3f4739"};`};
+    css`
+      background-color: ${(props) =>
+        $noBackground ? "transparent" : props.theme.backgroundColor2};
+    `};
   border: none;
   outline: none;
   border-radius: 5px;

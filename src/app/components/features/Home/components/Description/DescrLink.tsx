@@ -33,7 +33,7 @@ export const StyledDescrTabLink = styled.div<{
     border-radius: 5px;
     border: none;
     outline: none;
-    background-color: #3f4739;
+    background-color: ${(props) => props.theme.backgroundColor2};
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     transition: 300ms ease-in-out;
     transform: rotateY(25deg);

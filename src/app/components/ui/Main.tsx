@@ -9,6 +9,7 @@ import Footer from "../../components/features/Footer";
 const theme = {
   textColor: "#ffffff",
   backgroundColor: "#333333",
+  backgroundColor2: "#4b5544",
 };
 
 const Main = ({ children }: { children: ReactNode }) => {

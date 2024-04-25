@@ -78,7 +78,10 @@ const SliderPagination = ({
           </StyledSliderPgItem>
         );
       })}
-      <Button style={{ backgroundColor: "transparent" }} onClick={toggleAuto}>
+      <Button
+        style={{ backgroundColor: "transparent", marginLeft: "5px" }}
+        onClick={toggleAuto}
+      >
         <Icon
           src={isAuto ? IcPause : IcPlay}
           alt={isAuto ? "Stop auto swipe" : "Activate auto swipe"}
