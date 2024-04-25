@@ -10,6 +10,7 @@ export const inputStyles = css`
   padding-left: 5px;
   box-sizing: border-box;
   color: ${(props) => props.theme.backgroundColor};
+  font-size: 0.9rem;
 `;
 
 export const inputWrapStyles = css`

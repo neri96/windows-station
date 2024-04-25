@@ -24,6 +24,8 @@ const StyledInput = styled.div<{ $isCheckbox: boolean }>`
   }
   textarea {
     height: 60px;
+    font-family: inherit;
+    padding: 5px 0 0 5px;
   }
   input[type="checkbox"] {
     position: relative;

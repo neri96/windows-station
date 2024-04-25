@@ -10,7 +10,7 @@ const lato = Lato({ weight: ["300", "400", "700"], subsets: ["latin"] });
 const roboto = Roboto({ weight: ["300", "400", "700"], subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.windows-4u.com/"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL as string),
   title: "Window Station",
   description:
     "San Francisco Windows & Doors Widow Installation & Replacement Contractors in the SF Bay Area",
