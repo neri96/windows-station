@@ -50,7 +50,7 @@ const ContactInfo = () => {
             <p>1130 Burnett Ave. # N Concord, CA 94520</p>
           </li>
           <li>
-            <Icon src={IcPhone} alt="Phone: 415-295-4502" />
+            <Icon src={IcPhone} alt="415-295-4502" />
             <p>
               <a href="tel: 4152954502">415-295-4502</a>
             </p>

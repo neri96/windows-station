@@ -9,7 +9,6 @@ const iconPopupAnim = keyframes`
 const navDisappearAfter = keyframes`
   0% { position: static; }
   100% { position: absolute; }
-  
 `;
 
 export const StyledMainNavLi = styled.li<{
@@ -35,6 +34,11 @@ export const StyledMainNavLi = styled.li<{
         animation-delay: ${$index * 100 + 400 + "ms"};
         animation-fill-mode: forwards;
       `};
+
+    @media (max-width: 750px) {
+      transform: scale(1);
+      position: static;
+    }
   }
 `;
 
@@ -54,4 +58,8 @@ export const StyledMainNavTitle = styled.span<{ $isOpen: boolean }>`
       animation-delay: 400ms;
       animation-fill-mode: forwards;
     `};
+
+  @media (max-width: 750px) {
+    display: none;
+  }
 `;

@@ -32,7 +32,9 @@ const StyledSliderItem = styled.div<{
   ${({ $width }) => `width: ${$width + "%"}`};
   display: flex;
   position: relative;
+  align-items: center;
   justify-content: center;
+
   cursor: grab;
   cursor: -moz-grab;
   cursor: -webkit-grab;
@@ -44,15 +46,21 @@ const StyledSliderItem = styled.div<{
 `;
 
 const StyledSliderImage = styled.div<{
-  $currentImgWidth: boolean;
+  $currentImgHeight: number | undefined;
+  $currentImgWidth: number | undefined;
   $currentZoom: number;
   $currentTranslate: ITranslate;
   $isFullWidthImg: boolean;
   $imgSrc: any;
   $isDescr: boolean;
 }>`
-  ${({ $currentImgWidth, $isFullWidthImg }) =>
-    $isFullWidthImg ? `width: 100%` : `max-width: ${$currentImgWidth}px`};
+  ${({ $currentImgHeight, $currentImgWidth, $isFullWidthImg }) => {
+    return $isFullWidthImg
+      ? `height: 100%; width: 100%`
+      : $currentImgHeight &&
+          $currentImgWidth &&
+          `max-height: 100%; height: ${$currentImgHeight}px; max-width: ${$currentImgWidth}px`;
+  }};
   ${({ $isDescr, $imgSrc }) =>
     $isDescr &&
     css`
@@ -70,11 +78,19 @@ const StyledSliderImage = styled.div<{
   .sliderImage {
     ${({ $currentZoom, $currentTranslate: { translateY, translateX } }) =>
       `transform: scale(${$currentZoom}) translate(${translateX}%, ${translateY}%)`};
-    height: 100%;
-    width: 100%;
     transition: 300ms ease-in-out;
     ${({ $isFullWidthImg }) =>
-      `object-fit: ${$isFullWidthImg ? "cover" : "contain"}`};
+      $isFullWidthImg
+        ? css`
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          `
+        : css`
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+          `};
   }
 `;
 
@@ -110,18 +126,26 @@ const SliderItem = ({
     translateY: 0,
     translateX: 0,
   });
+  const [currentImgHeight, setCurrentImgHeight] = useState<number>(0);
   const [currentImgWidth, setCurrentImgWidth] = useState<number>(0);
 
   useEffect(() => {
-    if (!description && ref.current)
+    if (!description && ref.current) {
+      setCurrentImgHeight(ref.current.clientHeight);
       setCurrentImgWidth(ref.current.clientWidth);
+    }
   }, [description]);
 
   return (
     <>
       <StyledSliderItem $width={100 / carouselLength}>
         <StyledSliderImage
-          $currentImgWidth={Boolean(currentImgWidth)}
+          $currentImgHeight={
+            Boolean(currentImgHeight) ? currentImgHeight : undefined
+          }
+          $currentImgWidth={
+            Boolean(currentImgWidth) ? currentImgWidth : undefined
+          }
           $currentZoom={currentZoom}
           $currentTranslate={currentTranslate}
           $isFullWidthImg={isFullWidthImg}

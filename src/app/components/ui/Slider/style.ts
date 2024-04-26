@@ -32,7 +32,7 @@ export const StyledSliderBtn = styled.div<{ $isLeft?: boolean }>`
 export const StyledSlider = styled.div<{
   $sliderWidth: number;
   $itemWidth: number;
-  $index: number;
+  $index?: number;
   $transition: boolean;
   $distance: number;
   $isFooterNav: boolean;
@@ -47,13 +47,11 @@ export const StyledSlider = styled.div<{
         `
       : "height: 100%"};
   ${({ $sliderWidth }) => `min-width: ${$sliderWidth}%`};
-  ${({ $itemWidth, $index }) =>
-    `transform: translateX(-${$index * $itemWidth}%)`};
-  ${({ $distance, $itemWidth, $index }) =>
+  ${({ $itemWidth }) => `transform: translateX(-${$itemWidth}%)`};
+  ${({ $distance, $itemWidth }) =>
     $distance &&
-    `transform: translateX(calc(
-      ${`-${$itemWidth * $index}%`} - 
-      ${$distance + "px"}
-    ))`};
+    `transform: translateX(${`-${$itemWidth}%`}) translateX( 
+      ${-$distance}px); touch-action: none;
+  `};
   ${({ $transition }) => Boolean($transition) && `transition: 300ms;`};
 `;

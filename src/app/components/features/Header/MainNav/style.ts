@@ -21,6 +21,11 @@ export const StyledMainIcon = styled.div`
   @media (max-width: 500px) {
     .mainIconSmall {
       display: flex;
+      height: 90px;
+      width: 110px;
+      position: absolute;
+      top: -30px;
+      left: 0;
     }
     .mainIconLarge {
       display: none;

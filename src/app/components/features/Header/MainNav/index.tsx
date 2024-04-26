@@ -47,9 +47,9 @@ const navList = [
 const MainNav = () => {
   const [isMenuOpen, handleMenu, setIsMenuOpen] = useToggle(true);
 
-  useEffect(() => {
-    if (isMobile) setIsMenuOpen(false);
-  }, [setIsMenuOpen]);
+  // useEffect(() => {
+  //   if (isMobile) setIsMenuOpen(false);
+  // }, [setIsMenuOpen]);
 
   return (
     <StyledHeaderContent>

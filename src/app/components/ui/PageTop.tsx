@@ -12,7 +12,9 @@ const StyledPageTop = styled.section<{ $bgImage: any }>`
   ${({
     $bgImage,
   }) => `background: linear-gradient(to right, rgba(0,0,0, 0.8), rgba(0, 12, 64, 0.7)),
-    url(${$bgImage.src}) no-repeat center center fixed;`}
+    url(${$bgImage.src}) no-repeat;`};
+  background-size: cover;
+  background-position: center;
   position: relative;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
