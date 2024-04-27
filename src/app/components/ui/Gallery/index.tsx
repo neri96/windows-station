@@ -17,16 +17,19 @@ import { CtxGalleryImages } from "@/app/context";
 import { ISliderData } from "@/app/db/ts/interfaces";
 
 const StyledGallery = styled.div`
-  column-count: 3;
-  column-gap: 15px;
+  -moz-column-width: 20em;
+  -webkit-column-width: 20em;
+  column-width: 20em;
+  -moz-column-gap: 1em;
+  -webkit-column-gap: 1em;
+  column-gap: 1em;
 `;
 
 const StyledGalleryImage = styled.div`
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 0.75em;
   cursor: pointer;
-  margin: 15px 0;
-  &:first-child {
-    margin-top: 0;
-  }
   img {
     width: 100%;
     height: 100%;
@@ -37,6 +40,8 @@ const StyledGalleryImage = styled.div`
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
       rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     transition: 0.5s ease-in-out;
+    max-width: 100%;
+    height: auto;
   }
 `;
 

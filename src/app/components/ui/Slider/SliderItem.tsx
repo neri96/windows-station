@@ -61,7 +61,6 @@ const StyledSliderImage = styled.div<{
   $imgSrc: any;
   $isDescr: boolean;
 }>`
-  background-color: red;
   ${({ $currentImgHeight, $currentImgWidth, $isFullWidthImg }) => {
     return $isFullWidthImg
       ? `height: 100%; width: 100%`
