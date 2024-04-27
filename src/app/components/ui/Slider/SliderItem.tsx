@@ -1,4 +1,11 @@
-import { useEffect, useRef, useState, useReducer, memo } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useReducer,
+  memo,
+  useCallback,
+} from "react";
 
 import styled, { css } from "styled-components";
 
@@ -54,6 +61,7 @@ const StyledSliderImage = styled.div<{
   $imgSrc: any;
   $isDescr: boolean;
 }>`
+  background-color: red;
   ${({ $currentImgHeight, $currentImgWidth, $isFullWidthImg }) => {
     return $isFullWidthImg
       ? `height: 100%; width: 100%`
@@ -75,6 +83,8 @@ const StyledSliderImage = styled.div<{
     `};
   overflow: hidden;
   position: relative;
+  margin: 0 10px;
+  border-radius: 5px;
   .sliderImage {
     ${({ $currentZoom, $currentTranslate: { translateY, translateX } }) =>
       `transform: scale(${$currentZoom}) translate(${translateX}%, ${translateY}%)`};
@@ -89,7 +99,7 @@ const StyledSliderImage = styled.div<{
         : css`
             max-height: 100%;
             max-width: 100%;
-            object-fit: contain;
+            object-fit: cover;
           `};
   }
 `;
@@ -129,6 +139,11 @@ const SliderItem = ({
   const [currentImgHeight, setCurrentImgHeight] = useState<number>(0);
   const [currentImgWidth, setCurrentImgWidth] = useState<number>(0);
 
+  const dispatchTranslate = useCallback(
+    (type: TranslateAction, value: number) => dispatch({ type, value }),
+    []
+  );
+
   useEffect(() => {
     if (!description && ref.current) {
       setCurrentImgHeight(ref.current.clientHeight);
@@ -156,9 +171,7 @@ const SliderItem = ({
             <SliderZoomControllers
               currentZoom={currentZoom}
               currentTranslate={currentTranslate}
-              dispatchTranslate={(type: TranslateAction, value: number) =>
-                dispatch({ type, value })
-              }
+              dispatchTranslate={dispatchTranslate}
             />
           ) : null}
           {!description ? (

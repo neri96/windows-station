@@ -92,7 +92,7 @@ const SliderZoomControllers = ({
         translateY > 0 ? moveDistance : -moveDistance
       );
     }
-  }, [currentZoom, currentTranslate, dispatchTranslate]);
+  }, [currentZoom, JSON.stringify(currentTranslate), dispatchTranslate]);
 
   const handleDirection = (direction: Direction) => {
     const moveDistance = (100 - 100 / currentZoom) / 2;
