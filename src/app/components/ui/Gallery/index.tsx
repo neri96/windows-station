@@ -17,14 +17,20 @@ import { CtxGalleryImages } from "@/app/context";
 import { ISliderData } from "@/app/db/ts/interfaces";
 
 const StyledGallery = styled.div`
-  -moz-column-width: 30em;
-  -webkit-column-width: 30em;
-  column-width: 30em;
+  background-color: red;
+  -moz-column-width: 27em;
+  -webkit-column-width: 27em;
+  column-width: 27em;
   -moz-column-gap: 1em;
   -webkit-column-gap: 1em;
   column-gap: 1em;
   display: inline-block;
-  @media (max-width: 1030px) {
+  @media (max-width: 1400px) {
+    -moz-column-width: 25em;
+    -webkit-column-width: 25em;
+    column-width: 25em;
+  }
+  @media (max-width: 870px) {
     -moz-column-width: 17em;
     -webkit-column-width: 17em;
     column-width: 17em;
