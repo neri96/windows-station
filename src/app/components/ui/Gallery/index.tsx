@@ -17,12 +17,18 @@ import { CtxGalleryImages } from "@/app/context";
 import { ISliderData } from "@/app/db/ts/interfaces";
 
 const StyledGallery = styled.div`
-  -moz-column-width: 20em;
-  -webkit-column-width: 20em;
-  column-width: 20em;
+  -moz-column-width: 30em;
+  -webkit-column-width: 30em;
+  column-width: 30em;
   -moz-column-gap: 1em;
   -webkit-column-gap: 1em;
   column-gap: 1em;
+  display: inline-block;
+  @media (max-width: 1030px) {
+    -moz-column-width: 17em;
+    -webkit-column-width: 17em;
+    column-width: 17em;
+  }
 `;
 
 const StyledGalleryImage = styled.div`

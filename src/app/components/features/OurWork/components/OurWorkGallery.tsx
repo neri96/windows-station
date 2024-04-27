@@ -11,6 +11,8 @@ const StyledOurWorkGallery = styled.div`
   height: 100%;
   padding: 10px 0;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
 `;
 
 const OurWorkGallery = ({
