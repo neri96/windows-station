@@ -17,7 +17,6 @@ import { CtxGalleryImages } from "@/app/context";
 import { ISliderData } from "@/app/db/ts/interfaces";
 
 const StyledGallery = styled.div`
-  background-color: red;
   -moz-column-width: 27em;
   -webkit-column-width: 27em;
   column-width: 27em;
