@@ -71,14 +71,18 @@ const StyledSliderImage = styled.div<{
   ${({ $isDescr, $imgSrc }) =>
     $isDescr &&
     css`
-      background-size: contain;
-      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url(${$imgSrc.src});
-      filter: blur(25px);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)));
+
+      /* to be impelemented later  */
+      
+      /* filter: blur(25px);
       -webkit-filter: blur(25px);
       -moz-filter: blur(25px);
       -o-filter: blur(25px);
-      -ms-filter: blur(25px);
+      -ms-filter: blur(25px); */
     `};
   overflow: hidden;
   position: relative;

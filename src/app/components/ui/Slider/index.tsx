@@ -61,8 +61,6 @@ const Slider = ({
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  // useDisableScroll(Boolean(distance));
-
   const carouselArr = isInfininte
     ? [items[items.length - 1], ...items, items[0]]
     : items;
@@ -231,6 +229,7 @@ const Slider = ({
         <SliderPagination
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
+          isInfininte={isInfininte}
           sliderLength={
             isInfininte ? carouselArr.length - 2 : carouselArr.length
           } // in case the carousel is infinite, there are two extra slides that imitate endless loop but they shouldn't appear in pagination

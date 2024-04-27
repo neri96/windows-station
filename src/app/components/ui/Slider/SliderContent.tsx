@@ -31,42 +31,43 @@ const StyledSliderContent = styled.div<{ $inView: boolean }>`
       0% {
         opacity: 0;
         transform: translateX(5px);
-        ${filterBlur("25px")}
+        /* ${filterBlur("25px")} */
       }
       100% {
         opacity: 1;
         transform: translateX(0);
-        ${filterBlur(0)}
+        /* ${filterBlur(0)} */
       }
     }
-    opacity: 0;
+    /* opacity: 0; */
     min-width: 12.5rem;
     margin: 0 10px;
     line-height: 25px;
     font-size: 1.3rem;
-    ${({ $inView }) => $inView && `animation: textAppear 300ms 100ms forwards`};
+    /* ${({ $inView }) =>
+      $inView && `animation: textAppear 300ms 100ms forwards`}; */
   }
   img {
     @keyframes imageAppear {
       0% {
         opacity: 0;
-        ${filterBlur("25px")}
+        /* ${filterBlur("25px")} */
       }
       100% {
         opacity: 1;
-        ${filterBlur(0)}
+        /* ${filterBlur(0)} */
       }
     }
-    opacity: 0;
-    ${filterBlur("25px")}
+    /* opacity: 0; */
     border-radius: 5px;
+    min-height: 250px;
     max-height: 100% !important;
     max-width: 100%;
     height: auto;
     width: auto;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    ${({ $inView }) =>
-      $inView && `animation: imageAppear 300ms 100ms forwards`};
+    /* ${({ $inView }) =>
+      $inView && `animation: imageAppear 300ms 100ms forwards`}; */
   }
 
   @media (max-width: 850px) {

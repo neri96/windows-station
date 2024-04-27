@@ -52,12 +52,14 @@ const StyledSliderPgItem = styled.div<{ $isCurrentIndex: boolean }>`
 const SliderPagination = ({
   currentIndex,
   setCurrentIndex,
+  isInfininte,
   sliderLength,
   isAuto,
   toggleAuto,
 }: {
   currentIndex: number;
   setCurrentIndex: Dispatch<SetStateAction<number>>;
+  isInfininte: boolean;
   sliderLength: number;
   isAuto: boolean;
   toggleAuto: () => void;
@@ -65,7 +67,7 @@ const SliderPagination = ({
   return (
     <StyledSliderPagination>
       {Array.from(Array(sliderLength)).map((_, i) => {
-        const index = i + 1;
+        const index = isInfininte ? i + 1 : i;
 
         return (
           <StyledSliderPgItem
@@ -78,15 +80,17 @@ const SliderPagination = ({
           </StyledSliderPgItem>
         );
       })}
-      <Button
-        style={{ backgroundColor: "transparent", marginLeft: "5px" }}
-        onClick={toggleAuto}
-      >
-        <Icon
-          src={isAuto ? IcPause : IcPlay}
-          alt={isAuto ? "Stop auto swipe" : "Activate auto swipe"}
-        />
-      </Button>
+      {isInfininte ? (
+        <Button
+          style={{ backgroundColor: "transparent", marginLeft: "5px" }}
+          onClick={toggleAuto}
+        >
+          <Icon
+            src={isAuto ? IcPause : IcPlay}
+            alt={isAuto ? "Stop auto swipe" : "Activate auto swipe"}
+          />
+        </Button>
+      ) : null}
     </StyledSliderPagination>
   );
 };
