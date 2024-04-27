@@ -82,7 +82,6 @@ const StyledSliderImage = styled.div<{
     `};
   overflow: hidden;
   position: relative;
-  margin: 0 10px;
   border-radius: 5px;
   .sliderImage {
     ${({ $currentZoom, $currentTranslate: { translateY, translateX } }) =>
