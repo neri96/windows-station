@@ -1,4 +1,4 @@
-import imgMilgard from "@/app/assets/manufacturers/milgard_logo.jpg";
+import imgMilgard from "@/app/assets/manufacturers/milgard_logo.png";
 import imgWindsor from "@/app/assets/manufacturers/windsor.jpg";
 import imgCascade from "@/app/assets/manufacturers/cascade.jpg";
 import imgIwc from "@/app/assets/manufacturers/iwc.jpg";

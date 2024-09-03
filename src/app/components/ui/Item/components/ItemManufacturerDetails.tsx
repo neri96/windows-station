@@ -12,6 +12,8 @@ const StyledItemManufacturerDetails = styled.div`
   position: relative;
   img {
     cursor: pointer;
+    height: 74px;
+    width: 179px;
   }
 `;
 const ItemManufacturerDetails = ({

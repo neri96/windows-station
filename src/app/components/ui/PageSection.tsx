@@ -8,7 +8,6 @@ const StyledSection = styled.div<{
   $fixedHeight: boolean;
   $fullWidth: boolean;
 }>`
-  min-height: 400px;
   margin: 0 auto;
   ${({ $fixedHeight }) => `min-height: ${$fixedHeight ? "100vh" : "auto"}`};
   ${({ $fullWidth }) => `width: ${$fullWidth ? "100%" : "calc(100% - 50px)"}`};

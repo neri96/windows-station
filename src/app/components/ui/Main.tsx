@@ -10,6 +10,7 @@ const theme = {
   textColor: "#ffffff",
   backgroundColor: "#333333",
   backgroundColor2: "#4b5544",
+  borderRadius: "15px",
 };
 
 const Main = ({ children }: { children: ReactNode }) => {

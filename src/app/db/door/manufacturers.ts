@@ -1,6 +1,6 @@
 import { IDbManufacturer } from "../ts/interfaces";
 
-import imgMilgard from "@/app/assets/manufacturers/milgard_logo.jpg";
+import imgMilgard from "@/app/assets/manufacturers/milgard_logo.png";
 import imgIwc from "@/app/assets/manufacturers/iwc.jpg";
 import imgSimolton from "@/app/assets/manufacturers/simonton.jpg";
 import imgAmsco from "@/app/assets/manufacturers/amsco-windows.png";
