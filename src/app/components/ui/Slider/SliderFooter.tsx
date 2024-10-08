@@ -1,59 +1,15 @@
-import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
-import Image from "next/image";
+import CldImage from "../CldImage";
 
-import { IItemImage, ISliderData } from "@/app/db/ts/interfaces";
+import cn from "classnames";
 
-const StyledSliderFooter = styled.div<{
-  $currentIndex: number;
-  $length: number;
-  $imageWidth: number;
-}>`
-  height: 70px;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  .sliderFooterWrap {
-    height: 100%;
-    width: 580px;
-    margin-left: -5px;
-    overflow: hidden;
-    @media (max-width: 700px) {
-      ${({ $imageWidth }) => `width: ${580 - $imageWidth * 2}px`};
-    }
-  }
-  .sliderFooterInner {
-    height: 100%;
-    display: flex;
-    ${({ $length, $imageWidth }) => `width: ${$imageWidth * $length}px`};
-    ${({ $currentIndex, $imageWidth, $length }) => {
-      if ($currentIndex >= 2 && !($currentIndex >= $length - 4)) {
-        return `transform: translate(-${($currentIndex - 1) * $imageWidth}px)`;
-      } else if ($currentIndex >= $length - 4) {
-        return `transform: translate(-${($length - 5) * $imageWidth}px)`;
-      }
-    }};
-    transition: 300ms;
-  }
-`;
+import * as styleFn from "./utils/style";
+import style from "./SliderFooter.module.scss";
 
-export const StyledSliderItemFooter = styled.div<{
-  $isCurrent: boolean;
-  $imageWidth: number;
-}>`
-  height: 100%;
-  ${({ $imageWidth }) => `width: ${$imageWidth}px`};
-  ${({ $isCurrent }) => `opacity: ${$isCurrent ? 1 : 0.6}`};
-  display: flex;
-  justify-content: center;
-  img {
-    height: 100%;
-    width: calc(100% - 10px);
-  }
-`;
+import { ItemImageData } from "@/app/ts/interfaces";
+
+const imageWidth = 116;
 
 const SliderFooter = ({
   currentIndex,
@@ -62,32 +18,44 @@ const SliderFooter = ({
 }: {
   currentIndex: number;
   handleSlide: (arg0: number) => void;
-  items: ISliderData[] | IItemImage[];
+  items: ItemImageData[];
 }) => {
-  const imageWidth = 116;
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 650px)" });
+
   return (
-    <StyledSliderFooter
-      $currentIndex={currentIndex}
-      $length={items.length}
-      $imageWidth={imageWidth}
-    >
-      <div className="sliderFooterWrap">
-        <div className="sliderFooterInner">
+    <div className={style.container}>
+      <div
+        className={cn(style.footerWrapper, {
+          [style.centered]: items.length < (isSmallScreen ? 3 : 5),
+        })}
+      >
+        <div
+          className={style.footer}
+          style={styleFn.getSilderFooterStyle(
+            currentIndex,
+            imageWidth,
+            items.length,
+            isSmallScreen
+          )}
+        >
           {items.map(({ id, title, src }, index) => {
             return (
-              <StyledSliderItemFooter
+              <div
                 key={id}
-                $isCurrent={index === currentIndex}
-                $imageWidth={imageWidth}
+                className={style.itemFooter}
+                style={{
+                  width: `${imageWidth}px`,
+                  opacity: `${index === currentIndex ? 1 : 0.6}`,
+                }}
                 onClick={() => handleSlide(index)}
               >
-                <Image src={src} alt={title} />
-              </StyledSliderItemFooter>
+                <CldImage src={src} alt={title} height={70} width={70} />
+              </div>
             );
           })}
         </div>
       </div>
-    </StyledSliderFooter>
+    </div>
   );
 };
 

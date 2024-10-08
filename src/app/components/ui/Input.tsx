@@ -2,63 +2,13 @@
 
 import { UseFormRegister, UseFormClearErrors } from "react-hook-form";
 
-import styled from "styled-components";
-
-import { inputStyles, inputWrapStyles } from "@/app/shared/style";
+import cn from "classnames";
+import style from "./Input.module.scss";
 
 export enum InputType {
   Text = "text",
   Checkbox = "checkbox",
 }
-
-const StyledInput = styled.div<{ $isCheckbox: boolean }>`
-  ${inputWrapStyles};
-
-  input,
-  textarea {
-    ${({ $isCheckbox }) => !$isCheckbox && `width: 100%`};
-    ${inputStyles};
-  }
-  input {
-    height: 35px;
-  }
-  textarea {
-    height: 60px;
-    font-family: inherit;
-    padding: 5px 0 0 5px;
-  }
-  input[type="checkbox"] {
-    position: relative;
-    height: 25px;
-    width: 25px;
-    background-color: #666;
-    appearance: none;
-    &:checked {
-      background-color: #fff;
-      margin-right: 5px;
-      &::before {
-        border-color: green;
-      }
-    }
-    &::before {
-      content: "";
-      position: absolute;
-      top: calc(50% - 2px);
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(45deg);
-      width: 5px;
-      height: 13px;
-      border: 4px solid transparent;
-      border-left: none;
-      border-top: none;
-    }
-  }
-`;
-
-const StyledInputError = styled.div`
-  color: red;
-  margin-bottom: 5px;
-`;
 
 const Input = <T extends {}>({
   name,
@@ -94,7 +44,7 @@ const Input = <T extends {}>({
   const fieldComponent = () => {
     return (
       <>
-        {error ? <StyledInputError>{error}</StyledInputError> : null}
+        {error ? <div className={style.error}>{error}</div> : null}
         <Component
           value={value}
           type={inputType}
@@ -108,7 +58,11 @@ const Input = <T extends {}>({
   };
 
   return (
-    <StyledInput $isCheckbox={inputType === InputType.Checkbox}>
+    <div
+      className={cn(style.field, {
+        [style.checked]: inputType === InputType.Checkbox,
+      })}
+    >
       {inputType === InputType.Checkbox ? (
         <label>
           {fieldComponent()}
@@ -117,7 +71,7 @@ const Input = <T extends {}>({
       ) : (
         <>{fieldComponent()}</>
       )}
-    </StyledInput>
+    </div>
   );
 };
 

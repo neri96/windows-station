@@ -1,28 +1,7 @@
-"use client";
-
 import { ReactNode } from "react";
 
-import styled, { css } from "styled-components";
-
-const StyledPage = styled.div<{
-  $topMargin: boolean;
-  $fullWidth: boolean;
-}>`
-  min-height: 100vh;
-  ${({ $fullWidth }) =>
-    $fullWidth
-      ? `width: 100%`
-      : css`
-          width: calc(100% - 50px);
-          margin: 0 auto;
-        `};
-  ${({ $topMargin }) =>
-    $topMargin &&
-    css`
-      margin-top: 90px;
-      min-height: calc(100vh - 90px);
-    `};
-`;
+import cn from "classnames";
+import style from "./PageLayout.module.scss";
 
 const PageLayout = ({
   topMargin = false,
@@ -34,9 +13,14 @@ const PageLayout = ({
   children: ReactNode;
 }) => {
   return (
-    <StyledPage $topMargin={topMargin} $fullWidth={fullWidth}>
+    <div
+      className={cn(style.container, {
+        [style.fullWidth]: fullWidth,
+        [style.topMargin]: topMargin,
+      })}
+    >
       {children}
-    </StyledPage>
+    </div>
   );
 };
 

@@ -1,73 +1,66 @@
 "use client";
 
+import { ReactNode } from "react";
 import { motion } from "framer-motion";
 
-import styled from "styled-components";
+import cn from "classnames";
 
-import { appearTransform } from "@/app/helpers/variants";
+import { appear } from "@/app/helpers/variants";
 
-const StyledPageTop = styled.section<{ $bgImage: any }>`
-  min-height: 400px;
-  flex-grow: 1;
-  ${({
-    $bgImage,
-  }) => `background: linear-gradient(to right, rgba(0,0,0, 0.8), rgba(0, 12, 64, 0.7)),
-    url(${$bgImage.src}) no-repeat;`};
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-`;
+import style from "./PageTop.module.scss";
 
-const StyledPageTopTitle = styled.div`
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-transform: capitalize;
-  padding: 0 10px;
-  box-sizing: border-box;
-  h1 {
-    font-size: 2rem;
-    margin: 0;
-    text-align: center;
-  }
-  h2 {
-    line-height: 2rem;
-    max-width: 900px;
-    font-size: 1.3rem;
-    text-align: center;
-    margin: 10px auto 0;
-    @media (max-width: 600px) {
-      font-size: 1rem;
-    }
-  }
-`;
+export enum TitlePosition {
+  Top,
+  Center,
+  Bottom,
+}
 
 const PageTop = ({
   title,
   subtitle,
   background,
+  children,
+  height,
+  titlePosition = TitlePosition.Center,
 }: {
   title: string;
   subtitle?: string;
-  background: any;
+  background: string;
+  children?: ReactNode;
+  height?: number;
+  titlePosition?: TitlePosition;
 }) => {
   return (
-    <StyledPageTop $bgImage={background}>
-      <StyledPageTopTitle
-        as={motion.div}
-        variants={appearTransform}
+    <div
+      className={style.container}
+      style={{
+        minHeight: height || "350px",
+        backgroundImage: `linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0.4),
+          rgba(0, 12, 64, 0.6)
+        ), url(/bg-images/${background})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center center",
+      }}
+    >
+      {children}
+      <motion.div
+        className={cn(style.content, {
+          [style.titleTop]: titlePosition === TitlePosition.Top,
+          [style.titleCenter]: titlePosition === TitlePosition.Center,
+          [style.titleBottom]: titlePosition === TitlePosition.Bottom,
+        })}
+        variants={appear}
         initial="initial"
         animate="animate"
         transition={{ delay: 0.3 }}
       >
         <h1>{title}</h1>
         <h2>{subtitle}</h2>
-      </StyledPageTopTitle>
-    </StyledPageTop>
+      </motion.div>
+    </div>
   );
 };
 

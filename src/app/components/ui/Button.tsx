@@ -1,69 +1,37 @@
-import { CSSProperties, ReactNode } from "react";
+import { ReactNode, CSSProperties, ButtonHTMLAttributes } from "react";
 
-import styled, { css } from "styled-components";
+import cn from "classnames";
 
-export enum BtnType {
-  Button = "button",
-  Submit = "submit",
+import style from "./Button.module.scss";
+
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  hidden?: boolean;
+  noBackground?: boolean;
+  noStyle?: boolean;
+  children?: ReactNode;
+  customStyle?: CSSProperties;
 }
-
-const StyledButton = styled.button<{
-  $disabled: boolean;
-  $hidden: boolean;
-  $noBackground: boolean;
-}>`
-  ${({ $noBackground }) =>
-    css`
-      background-color: ${(props) =>
-        $noBackground ? "transparent" : props.theme.backgroundColor2};
-    `};
-  border: none;
-  outline: none;
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding: 5px 10px;
-  box-sizing: border-box;
-  cursor: pointer;
-  transition: 300ms ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  ${({ $hidden }) => $hidden && `display: none`};
-  ${({ $disabled }) => $disabled && `opacity: 0.5`};
-  &:active {
-    transform: scale(1.1) rotate(15deg);
-  }
-`;
 
 const Button = ({
   hidden = false,
-  btnType = BtnType.Button,
-  disabled = false,
   noBackground = false,
-  onClick,
+  noStyle = false,
   children,
-  style,
-}: {
-  hidden?: boolean;
-  btnType?: BtnType;
-  disabled?: boolean;
-  noBackground?: boolean;
-  onClick?: () => void;
-  children?: ReactNode;
-  style?: CSSProperties;
-}) => {
+  customStyle,
+  ...props
+}: IButtonProps) => {
   return (
-    <StyledButton
-      $hidden={hidden}
-      $disabled={disabled}
-      $noBackground={noBackground}
-      disabled={disabled}
-      type={btnType === BtnType.Button ? "button" : "submit"}
-      onClick={() => !disabled && onClick && onClick()}
-      style={style}
+    <button
+      className={cn(style.button, {
+        [style.hidden]: hidden,
+        [style.noBg]: noBackground,
+        [style.icon]: noStyle,
+      })}
+      style={customStyle}
+      {...props}
     >
       {children}
-    </StyledButton>
+    </button>
   );
 };
 

@@ -2,30 +2,34 @@
 
 import { ReactNode } from "react";
 
-import styled from "styled-components";
-
-const StyledSection = styled.div<{
-  $fixedHeight: boolean;
-  $fullWidth: boolean;
-}>`
-  margin: 0 auto;
-  ${({ $fixedHeight }) => `min-height: ${$fixedHeight ? "100vh" : "auto"}`};
-  ${({ $fullWidth }) => `width: ${$fullWidth ? "100%" : "calc(100% - 50px)"}`};
-`;
+import cn from "classnames";
+import style from "./PageSection.module.scss";
 
 const PageSection = ({
+  header,
   fixedHeight = false,
   fullWidth = false,
   children,
 }: {
+  header?: string;
   fixedHeight?: boolean;
   fullWidth?: boolean;
   children: ReactNode;
 }) => {
   return (
-    <StyledSection $fixedHeight={fixedHeight} $fullWidth={fullWidth}>
+    <div
+      className={cn(style.container, {
+        [style.fixedHeight]: fixedHeight,
+        [style.fullWidth]: fullWidth,
+      })}
+    >
+      {header ? (
+        <div className={style.header}>
+          <h3>{header}</h3>
+        </div>
+      ) : null}
       {children}
-    </StyledSection>
+    </div>
   );
 };
 

@@ -2,48 +2,25 @@ import { ReactNode } from "react";
 
 import { motion, AnimatePresence } from "framer-motion";
 
-import styled from "styled-components";
-
-import { useRouter } from "next/navigation";
-
-import useToggle from "@/app/hooks/useToggle";
 import Container from "./Container";
-
-import { appear } from "@/app/helpers/variants";
 import Link from "next/link";
 
-const StyledDropDown = styled.div`
-  position: relative;
-  z-index: 1000;
-`;
+import useToggle from "@/app/hooks/useToggle";
 
-const StyledDropDownListWrap = styled.div`
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-`;
+import { appear } from "@/app/helpers/variants";
 
-const StyledDropDownList = styled.ul`
-  background-color: #717568;
-  border-radius: 5px;
-  z-index: 1000;
-  li {
-    padding: 5px 10px;
-    box-sizing: border-box;
-    text-transform: capitalize;
-    position: relative;
-    span {
-      padding-left: 10px;
-      box-sizing: border-box;
-    }
-  }
-`;
+import style from "./DropDown.module.scss";
+
+export enum OpenType {
+  Click,
+  Hover,
+}
 
 interface IList {
   id: string;
   title: string;
   link: string;
+  prefetch?: boolean;
 }
 
 const DropDown = ({
@@ -56,33 +33,35 @@ const DropDown = ({
   const [isOpen, toggleDropDown] = useToggle();
 
   return (
-    <StyledDropDown onMouseEnter={toggleDropDown} onMouseLeave={toggleDropDown}>
+    <div className={style.container} onClick={toggleDropDown}>
       {children}
 
       <AnimatePresence>
         {isOpen && (
-          <StyledDropDownListWrap
-            as={motion.div}
+          <motion.div
+            className={style.listWrapper}
             variants={appear}
             initial="initial"
             animate="animate"
             exit="exit"
           >
-            <Container color={"#717568"}>
-              <StyledDropDownList>
-                {list.map(({ id, title, link }) => {
+            <Container>
+              <ul className={style.list}>
+                {list.map(({ id, title, link, prefetch }) => {
                   return (
                     <li key={id}>
-                      <Link href={link}>{title}</Link>
+                      <Link href={link} prefetch={prefetch}>
+                        {title}
+                      </Link>
                     </li>
                   );
                 })}
-              </StyledDropDownList>
+              </ul>
             </Container>
-          </StyledDropDownListWrap>
+          </motion.div>
         )}
       </AnimatePresence>
-    </StyledDropDown>
+    </div>
   );
 };
 

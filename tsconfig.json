@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/components/features/Header/MainNav/style.ts"
+    "src/app/components/layout/header/MainNav/style.ts"
   ],
   "exclude": ["node_modules"]
 }

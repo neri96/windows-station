@@ -1,21 +1,16 @@
 import { useContext } from "react";
 
-import styled from "styled-components";
-
-import { CtxGalleryImages } from "@/app/context";
+import { CtxGalleryImages } from "@/app/context/gallery";
 
 import Slider from "../Slider";
 
-const StyledGalleryCarouselBody = styled.div`
-  flex-grow: 1;
-  height: calc(100% - 50px);
-`;
+import style from "./GalleryCarouselBody.module.scss";
 
 const GalleryCarouselBody = () => {
   const { items, initialIndex } = useContext(CtxGalleryImages);
 
   return (
-    <StyledGalleryCarouselBody>
+    <div className={style.container}>
       <Slider
         items={items}
         initialIndex={initialIndex}
@@ -23,7 +18,7 @@ const GalleryCarouselBody = () => {
         zoomControllers
         height={"100%"}
       />
-    </StyledGalleryCarouselBody>
+    </div>
   );
 };
 

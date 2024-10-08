@@ -1,62 +1,15 @@
 import { useEffect } from "react";
 
-import styled, { css } from "styled-components";
+import cn from "classnames";
 
+import Button from "../Button";
 import Icon from "../Icon";
 
 import IcArrow from "@/app/assets/icons/arrow-2.svg";
 
 import { ITranslate, TranslateAction } from "./ts/interfaces";
 
-const StyledZoomController = styled.div<{
-  $direction: Direction;
-}>`
-  position: absolute;
-  ${({ $direction }) => {
-    if ($direction === Direction.Up) {
-      return css`
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        img {
-          height: 100%;
-          width: 100%;
-        }
-      `;
-    } else if ($direction === Direction.Left) {
-      return css`
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%) rotate(-90deg);
-        img {
-          height: 100%;
-          width: 100%;
-        }
-      `;
-    } else if ($direction === Direction.Right) {
-      return css`
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%) rotate(90deg);
-        img {
-          height: 100%;
-          width: 100%;
-        }
-      `;
-    } else if ($direction === Direction.Down) {
-      return css`
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%) rotate(180deg);
-        img {
-          height: 100%;
-          width: 100%;
-        }
-      `;
-    }
-  }};
-  z-index: 1000;
-`;
+import style from "./SliderZoomControllers.module.scss";
 
 enum Direction {
   Up = "top",
@@ -110,30 +63,26 @@ const SliderZoomControllers = ({
 
   return currentZoom > 1 ? (
     <>
-      <StyledZoomController
-        $direction={Direction.Up}
-        onClick={() => handleDirection(Direction.Up)}
-      >
-        <Icon src={IcArrow} alt="Up" />
-      </StyledZoomController>
-      <StyledZoomController
-        $direction={Direction.Left}
-        onClick={() => handleDirection(Direction.Left)}
-      >
-        <Icon src={IcArrow} alt="Left" />
-      </StyledZoomController>
-      <StyledZoomController
-        $direction={Direction.Right}
-        onClick={() => handleDirection(Direction.Right)}
-      >
-        <Icon src={IcArrow} alt="Right" />
-      </StyledZoomController>
-      <StyledZoomController
-        $direction={Direction.Down}
-        onClick={() => handleDirection(Direction.Down)}
-      >
-        <Icon src={IcArrow} alt="Down" />
-      </StyledZoomController>
+      <div className={cn(style.controller, style.up)}>
+        <Button noStyle onClick={() => handleDirection(Direction.Up)}>
+          <Icon src={IcArrow} alt="Up" />
+        </Button>
+      </div>
+      <div className={cn(style.controller, style.left)}>
+        <Button noStyle onClick={() => handleDirection(Direction.Left)}>
+          <Icon src={IcArrow} alt="Left" />
+        </Button>
+      </div>
+      <div className={cn(style.controller, style.right)}>
+        <Button noStyle onClick={() => handleDirection(Direction.Right)}>
+          <Icon src={IcArrow} alt="Right" />
+        </Button>
+      </div>
+      <div className={cn(style.controller, style.down)}>
+        <Button noStyle onClick={() => handleDirection(Direction.Down)}>
+          <Icon src={IcArrow} alt="Down" />
+        </Button>
+      </div>
     </>
   ) : null;
 };

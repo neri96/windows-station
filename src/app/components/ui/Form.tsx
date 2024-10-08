@@ -1,58 +1,36 @@
 "use client";
 
-import { useState, ReactNode, Children, forwardRef, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+  ReactNode,
+  Children,
+  FormHTMLAttributes,
+} from "react";
 
 import { SubmitHandler, UseFormHandleSubmit } from "react-hook-form";
 
-import styled from "styled-components";
+import Button from "./Button";
 
-import Button, { BtnType } from "./Button";
+import { IFormInput } from "@/app/ts/interfaces";
 
-const StyledForm = styled.form`
-  padding: 20px 0;
-  overflow: hidden;
-  box-sizing: border-box;
-`;
+import style from "./Form.module.scss";
 
-const StyledWizard = styled.div<{
-  $currentStep: number;
-  $wizardWidth: number;
-}>`
-  display: flex;
-  transition: 300ms ease-in-out;
-  ${({ $wizardWidth }) => `width: ${$wizardWidth * 100}%`};
-  ${({ $currentStep, $wizardWidth }) => {
-    const distance = (100 / $wizardWidth) * $currentStep;
+interface IFormProps
+  extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+  isSuccess: boolean;
+  onSubmit: SubmitHandler<IFormInput>;
+  handleSubmit: UseFormHandleSubmit<IFormInput, undefined>;
+  children: ReactNode;
+}
 
-    return `transform: translateX(-${distance}%)`;
-  }};
-`;
-
-const StyledWizardElem = styled.div`
-  width: 100%;
-`;
-
-const StyledWizardBottom = styled.div`
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  button {
-    margin: 0 5px;
-  }
-`;
-
-const Form = <T extends {}>({
+const Form = ({
   isSuccess,
   onSubmit,
   handleSubmit,
   children,
-}: {
-  isSuccess: boolean;
-  onSubmit: SubmitHandler<T>;
-  handleSubmit: UseFormHandleSubmit<T, undefined>;
-  children: ReactNode;
-}) => {
+  ...props
+}: IFormProps) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const content = Children.toArray(children);
@@ -62,21 +40,31 @@ const Form = <T extends {}>({
   }, [isSuccess]);
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)}>
-      <StyledWizard $currentStep={currentStep} $wizardWidth={content.length}>
+    <form className={style.form} onSubmit={handleSubmit(onSubmit)} {...props}>
+      <div
+        className={style.wizard}
+        style={{
+          width: `${content.length * 100}%`,
+          transform: `translateX(-${(100 / content.length) * currentStep}%)`,
+        }}
+      >
         {Children.toArray(children).map((component, index) => (
-          <StyledWizardElem key={index}>{component}</StyledWizardElem>
+          <div key={index} className={style.wizardElem}>
+            {component}
+          </div>
         ))}
-      </StyledWizard>
-      <StyledWizardBottom>
+      </div>
+      <div className={style.wizardBottom}>
         <Button
           hidden={currentStep === 0}
+          customStyle={{ margin: "0 5px" }}
           onClick={() => setCurrentStep((prevState) => prevState - 1)}
         >
           Prev
         </Button>
         <Button
           hidden={currentStep === content.length - 1}
+          customStyle={{ margin: "0 5px" }}
           onClick={handleSubmit(() =>
             setCurrentStep((prevState) => prevState + 1)
           )}
@@ -85,12 +73,13 @@ const Form = <T extends {}>({
         </Button>
         <Button
           hidden={currentStep < content.length - 1}
-          btnType={BtnType.Submit}
+          type="submit"
+          customStyle={{ margin: "0 5px" }}
         >
           Submit
         </Button>
-      </StyledWizardBottom>
-    </StyledForm>
+      </div>
+    </form>
   );
 };
 

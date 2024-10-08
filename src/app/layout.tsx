@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import { Lato, Roboto } from "next/font/google";
+import { Poppins } from "next/font/google";
 
 import Main from "./components/ui/Main";
 
-import StyledComponentsRegistry from "./lib/registry";
-import GlobalStyle from "./globalStyle";
+import "./global.scss";
 
-const lato = Lato({ weight: ["300", "400", "700"], subsets: ["latin"] });
-const roboto = Roboto({ weight: ["300", "400", "700"], subsets: ["latin"] });
+const poppins = Poppins({ weight: ["300", "400", "700"], subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL as string),
@@ -23,11 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={roboto.className}>
-        <StyledComponentsRegistry>
-          <GlobalStyle />
-          <Main>{children}</Main>
-        </StyledComponentsRegistry>
+      <body className={poppins.className}>
+        <Main>{children}</Main>
+        <div id="dialog" />
       </body>
     </html>
   );
